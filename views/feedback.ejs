@@ -1,13 +1,15 @@
 <%- include("./partials/header") %>
 <%- include("./partials/navbar3") %>
+<% if(successMessage){ %>
+    <div class="text-danger mt-4 d-flex justify-content-center custom_font_style">
+        <h3> <%= successMessage %></h3>
+    </div>
+<% } %>
 <div class="container mt-4 custom_font_style">
     <div class="row">
         <div class="col-md-4">
             <div class="main-content">
                 <h1 class="custom_color">Send us feedback</h1>
-                <% if(successMessage){ %>
-                    <div class="text-success mt-2"><%= successMessage %></div>
-                <% } %>
                 <form class="feedback-form" method="POST" action="/feedback">
                     <div class="form-group mt-2">
                         <label for="feedback-form-name">Name</label>

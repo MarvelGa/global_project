@@ -36,7 +36,7 @@ module.exports = () => {
             .deleteOne({_id: request.params.id})
             .then(() => {
                 request.session.feedback = {
-                    message: 'The comment was deleted',
+                    message: 'The comment was deleted!',
                 };
                 return response.redirect("/feedback");
             })

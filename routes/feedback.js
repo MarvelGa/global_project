@@ -31,18 +31,6 @@ module.exports = () => {
         }
     });
 
-    router.get('/delete/:id', authentication, (request, response) => {
-        Feedback
-            .deleteOne({_id: request.params.id})
-            .then(() => {
-                request.session.feedback = {
-                    message: 'The comment was deleted!',
-                };
-                return response.redirect("/feedback");
-            })
-            .catch((err) => console.log(err));
-    });
-
     router.post('/', (request, response) => {
         const email = request.session.user.email;
         const {name, title, message} = request.body;
@@ -57,5 +45,60 @@ module.exports = () => {
             })
             .catch((err) => console.log(err));
     });
+
+    router.get('/delete/:id', authentication, (request, response) => {
+        Feedback
+            .deleteOne({_id: request.params.id})
+            .then(() => {
+                request.session.feedback = {
+                    message: 'The comment was deleted!',
+                };
+                return response.redirect("/feedback");
+            })
+            .catch((err) => console.log(err));
+    });
+
+    router.get('/edit/:id', authentication, async (request, response, next) => {
+        try {
+            const foundFeedback = await Feedback.findOne({_id: request.params.id});
+            let userCurrentFeedback;
+            if (foundFeedback) {
+                userCurrentFeedback = {
+                    'id': foundFeedback.id,
+                    'name': foundFeedback.name,
+                    'email': foundFeedback.email,
+                    'title': foundFeedback.title,
+                    'message': foundFeedback.message
+                }
+            } else {
+                return response.send(`Cant find user with this id=${request.params.id}`)
+            }
+            return response.render("editFeedback", {
+                userCurrentFeedback
+            });
+        } catch (err) {
+            return next(err);
+        }
+    });
+
+    router.post('/edit/:id', authentication, async (request, response, next) => {
+        try {
+            const {name, title, message} = request.body;
+            const result = await Feedback.updateOne({_id: request.params.id}, {
+                name: name,
+                title: title,
+                message: message
+            });
+            if (result) {
+                request.session.feedback = {
+                    message: 'The comment was successfully updated!',
+                };
+                return response.redirect("/feedback");
+            }
+        } catch (err) {
+            return next(err);
+        }
+    });
+
     return router;
 };

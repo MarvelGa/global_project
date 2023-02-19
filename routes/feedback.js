@@ -44,7 +44,8 @@ module.exports = () => {
     });
 
     router.post('/', (request, response) => {
-        const {name, email, title, message} = request.body;
+        const email = request.session.user.email;
+        const {name, title, message} = request.body;
         const newFeedBack = new Feedback({name, email, title, message});
         newFeedBack
             .save()

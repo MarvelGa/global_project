@@ -12,7 +12,7 @@ module.exports = () => {
             const userEmail = request.session.user;
             for await (const feedbackInfo of Feedback.find()) {
                 feedback.push({
-                    'id':feedbackInfo.id,
+                    'id': feedbackInfo.id,
                     'name': feedbackInfo.name,
                     'email': feedbackInfo.email,
                     'title': feedbackInfo.title,
@@ -29,6 +29,18 @@ module.exports = () => {
         } catch (err) {
             return next(err);
         }
+    });
+
+    router.get('/delete/:id', authentication, (request, response) => {
+        Feedback
+            .deleteOne({_id: request.params.id})
+            .then(() => {
+                request.session.feedback = {
+                    message: 'The comment was deleted',
+                };
+                return response.redirect("/feedback");
+            })
+            .catch((err) => console.log(err));
     });
 
     router.post('/', (request, response) => {

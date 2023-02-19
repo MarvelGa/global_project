@@ -24,7 +24,8 @@ module.exports = () => {
                 template: 'feedback',
                 feedback,
                 successMessage,
-                userEmail
+                userEmail,
+                congratsMessage: ""
             });
         } catch (err) {
             return next(err);

@@ -26,7 +26,10 @@ module.exports = () => {
             newUser
                 .save()
                 .then(() => {
-                    res.redirect("/login");
+                    req.session.congratmessage = {
+                        message: 'Your registration was successful! Now Log In!',
+                    };
+                   return res.redirect("/login");
                 })
                 .catch((err) => console.log(err));
         });

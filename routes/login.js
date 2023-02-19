@@ -5,10 +5,14 @@ const router = express.Router();
 module.exports = () => {
     router
         .get("/", (req, res) => {
-            res.render("login", {pageMessage: ''});
+            let congratsMessage = req.session.congratmessage ? req.session.congratmessage.message : '';
+            req.session.congratmessage = {};
+            res.render("login", {congratsMessage, pageMessage: ''});
         })
         .get("/login", (req, res) => {
-            res.render("login", {pageMessage: ''});
+            let congratsMessage = req.session.congratmessage ? req.session.congratmessage.message : '';
+            req.session.congratmessage = {};
+            res.render("login", {congratsMessage, pageMessage: ''});
         })
 
     router
@@ -19,7 +23,7 @@ module.exports = () => {
             const doesUserExits = await User.findOne({email});
 
             if (!doesUserExits) {
-                return res.render("login", {pageMessage: "user with such login doesnt exist"});
+                return res.render("login", {pageMessage: "user with such login doesnt exist", congratsMessage: ""});
             }
 
             const doesPasswordMatch = await bcrypt.compare(
@@ -28,7 +32,7 @@ module.exports = () => {
             );
 
             if (!doesPasswordMatch) {
-                return res.render("login", {pageMessage: "invalid username or password"});
+                return res.render("login", {pageMessage: "invalid username or password", congratsMessage: ""});
             }
 
             req.session.user = {

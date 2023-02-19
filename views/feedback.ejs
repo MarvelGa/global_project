@@ -1,0 +1,86 @@
+<%- include("./partials/header") %>
+<%- include("./partials/navbar3") %>
+<div class="container mt-4 custom_font_style" >
+    <div class="row">
+        <div class="col-md-4">
+            <div class="main-content">
+                <h1 class="custom_color">Send us feedback</h1>
+                <% if(successMessage){ %>
+                    <div class="text-success mt-2"><%= successMessage %></div>
+                <% } %>
+                <form class="feedback-form" method="POST" action="/feedback" >
+                    <div class="form-group mt-2">
+                        <label for="feedback-form-name">Name</label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="feedback-form-name"
+                                placeholder="Enter your name"
+                                name="name"
+                                required
+                        />
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="feedback-form-email">E-Mail</label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="feedback-form-email"
+                                name="email"
+                                placeholder="Enter your email address"
+                                required
+                        />
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="feedback-form-title">Title</label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="feedback-form-title"
+                                name="title"
+                                placeholder="Title of your feedback"
+                                required
+                        />
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="feedback-form-message">Message</label>
+                        <textarea
+                                type="text"
+                                placeholder="Enter your message, then hit the submit button"
+                                class="form-control"
+                                id="feedback-form-message"
+                                name="message"
+                                rows="6"
+                                required
+                        ></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-secondary float-right mt-2">Submit</button>
+                </form>
+            </div>
+        </div>
+        <aside class="col-md-8">
+            <div class="maincontent feedback">
+                <h1 class="custom_color">Recent Feedback</h1>
+
+                <div class="feedback-items">
+                    <% feedback.forEach(function (item) {%>
+                    <div class="feedback-item item-list media-list mt-2">
+                        <div class="feedback-item media">
+                            <div class="feedback-info media-body">
+                                <div class="feedback-head">
+                                    <div class="feedback-title"><%=item.title%></div>
+                                    <small>by <%=item.name%></small>
+                                </div>
+                                <div class="feedback-message"><%=item.message%></div>
+                                <span>__________________________________</span>
+                            </div>
+                        </div>
+                    </div>
+                    <%})%>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<%- include("./partials/footer") %>

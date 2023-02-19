@@ -1,0 +1,28 @@
+:root {
+    --primary-color: #6c63ff;
+    --secondary-color: #5053b1;
+    --box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    --acсent-color: mediumseagreen;
+}
+
+
+/*.custom_color{*/
+/*    background-color: var(--acсent-color) !important;*/
+/*}*/
+
+.custom_font_style{
+    font-family: "Roboto Light" !important;
+}
+
+.custom_color{
+    color:var(--secondary-color) !important;
+}
+
+.custom_text_color{
+    color:white !important;
+    font-weight: bolder !important;
+}
+
+.custom_size{
+   font-size:  1.25rem !important;
+}

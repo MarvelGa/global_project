@@ -1,21 +1,20 @@
 const express = require('express');
 const Feedback = require('../models/Feedback')
 const router = express.Router();
+const authentication = require("../security/userAuthenticate");
 
 module.exports = () => {
-    router.get('/', async (request, response, next) => {
-        if (!request.session.user) {
-            response.send("You are not allowed to visit this page! Please, logged in!");
-            return;
-        }
+    router.get('/', authentication, async (request, response, next) => {
         try {
             const successMessage = request.session.feedback ? request.session.feedback.message : false;
             request.session.feedback = {};
             let feedback = [];
+            const userEmail = request.session.user;
             for await (const feedbackInfo of Feedback.find()) {
                 feedback.push({
+                    'id':feedbackInfo.id,
                     'name': feedbackInfo.name,
-                    'feedback': feedbackInfo.email,
+                    'email': feedbackInfo.email,
                     'title': feedbackInfo.title,
                     'message': feedbackInfo.message
                 });
@@ -24,7 +23,8 @@ module.exports = () => {
                 pageTitle: 'Feedback',
                 template: 'feedback',
                 feedback,
-                successMessage
+                successMessage,
+                userEmail
             });
         } catch (err) {
             return next(err);

@@ -1,6 +1,6 @@
 <%- include("./partials/header") %>
 <%- include("./partials/navbar3") %>
-<div class="container mt-4 custom_font_style" >
+<div class="container mt-4 custom_font_style">
     <div class="row">
         <div class="col-md-4">
             <div class="main-content">
@@ -8,7 +8,7 @@
                 <% if(successMessage){ %>
                     <div class="text-success mt-2"><%= successMessage %></div>
                 <% } %>
-                <form class="feedback-form" method="POST" action="/feedback" >
+                <form class="feedback-form" method="POST" action="/feedback">
                     <div class="form-group mt-2">
                         <label for="feedback-form-name">Name</label>
                         <input
@@ -63,20 +63,26 @@
                 <h1 class="custom_color">Recent Feedback</h1>
 
                 <div class="feedback-items">
-                    <% feedback.forEach(function (item) {%>
-                    <div class="feedback-item item-list media-list mt-2">
-                        <div class="feedback-item media">
-                            <div class="feedback-info media-body">
-                                <div class="feedback-head">
-                                    <div class="feedback-title"><%=item.title%></div>
-                                    <small>by <%=item.name%></small>
+                    <% feedback.forEach(function (item) { %>
+                        <div class="feedback-item item-list media-list mt-2">
+                            <div class="feedback-item media">
+                                <div class="feedback-info media-body">
+                                    <div class="feedback-head">
+                                        <div class="feedback-title"><%= item.title %></div>
+                                        <small>by <%= item.name %> ", email:"<%= item.email %></small>
+                                    </div>
+                                    <div class="feedback-message"><%= item.message %></div>
+                                    <% if (item.email == userEmail.email) { %>
+                                        <a href="/feedback/edit/<%= item.id %>"
+                                           class="btn btn-primary btn-raised">Edit</a>
+                                        <a href="/feedback/delete/<%= item.id %> "
+                                           class="btn btn-danger btn-raised">Delete</a>
+                                    <% } %>
+                                    <div>__________________________________</div>
                                 </div>
-                                <div class="feedback-message"><%=item.message%></div>
-                                <span>__________________________________</span>
                             </div>
                         </div>
-                    </div>
-                    <%})%>
+                    <% }) %>
                 </div>
             </div>
         </aside>

@@ -2,27 +2,52 @@
     --primary-color: #6c63ff;
     --secondary-color: #5053b1;
     --box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-    --acсent-color: mediumseagreen;
 }
 
-
-/*.custom_color{*/
-/*    background-color: var(--acсent-color) !important;*/
-/*}*/
-
-.custom_font_style{
+.custom_font_style {
     font-family: "Roboto Light" !important;
 }
 
-.custom_color{
-    color:var(--secondary-color) !important;
+.custom_color {
+    color: var(--secondary-color) !important;
 }
 
-.custom_text_color{
-    color:white !important;
+.custom_text_color {
+    color: white !important;
     font-weight: bolder !important;
 }
 
-.custom_size{
-   font-size:  1.25rem !important;
+.custom_size {
+    font-size: 1.25rem !important;
+}
+
+.scale {
+    transition: 1s;
+!important;
+}
+
+.scale:hover {
+    transform: scale(1.2);
+!important;
+    background-color: var(--primary-color);
+    cursor: pointer;
+    box-shadow: 2px 2px 3px rgba(0, 1, 0, 0.3) !important;
+    opacity: 0.9;
+}
+
+.custom_settings div {
+    margin-bottom: 9%;
+    font-family: "Roboto Light" !important;
+    border-radius: 9% !important;
+    font-weight: lighter !important;
+    font-weight: bold !important;
+}
+
+@Media (max-width: 979px) {
+    .grid_table div {
+        margin: 10% auto;
+        text-align: left;
+        font-size: 16px;
+    }
+
 }
